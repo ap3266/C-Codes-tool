@@ -1,0 +1,52 @@
+DataGridView 中列和设计时发生变化：
+原因：
+DataGridView中的列不管你是手动编辑列还是绑定数据源后自动生成的列 
+如果你是通过
+DataGridView.Columns[i].Name 来获得列的话，顺序会根据以下情况变更的
+1、如果没有实体类 则根据你的查询语句中的列的顺序是一样的
+
+2、如果有实体类，比如DataGridView数据源是List<Student>（Student是实体类）则得到的顺序和实体类中的属性的顺序一致。
+
+针对第二种说明如下：
+实体类
+  class WeixinLeadIn
+    {
+        private string weixinNum;    
+        private string stateStr;    
+        
+        public string WeixinNum
+        {
+            get { return weixinNum; }
+            set { weixinNum = value; }
+        }
+        public string StateStr
+        {
+            get { return stateStr; }
+            set { stateStr = value; }
+        }
+    }
+    private BindingList<WeixinLeadIn> weixinLeadinfo;
+   dataGridview.DataSource=weixinLeadinfo;
+   
+   绑定过程中 ：数据列2列 手动设计时添加删除列DataGridViewImageColumn(删除的图标)
+   
+   当定义实体类为 class WeixinLeadIn
+    {
+        private string weixinNum;    
+        private string stateStr;    
+       
+        public string StateStr
+        {
+            get { return stateStr; }
+            set { stateStr = value; }
+        }
+        
+        public string WeixinNum
+        {
+            get { return weixinNum; }
+            set { weixinNum = value; }
+        }
+    }
+    为上面的情况时 发生定义的列DataGridViewImageColumn(删除的图标)总是顺序发生改变 成为第二列。
+    
+    修改实体类定义后列DataGridViewImageColumn(删除的图标)成为第三列，顺序恢复。
