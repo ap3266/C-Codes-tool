@@ -4,6 +4,10 @@ DataGridView中的列不管你是手动编辑列还是绑定数据源后自动�
 如果你是通过
 DataGridView.Columns[i].Name 来获得列的话，顺序会根据以下情况变更的
 1、如果没有实体类 则根据你的查询语句中的列的顺序是一样的
+第一种说明：
+select 中字段的顺序与datagridview中的顺序不一样，
+将select 语句中的顺序与 datagridview 中列的顺序写成一致后，这个问题就不发生了。
+如果包括要隐藏的id列，列Visible设置为False ，顺序保持正确。
 
 2、如果有实体类，比如DataGridView数据源是List<Student>（Student是实体类）则得到的顺序和实体类中的属性的顺序一致。
 
